@@ -172,6 +172,8 @@ if __name__=="__main__":
     second_stamps.sort()
     second_xyz_full = numpy.matrix([[float(value)*float(args.scale) for value in second_list[b][0:3]] for b in second_stamps]).transpose()
     second_xyz_full_aligned = scale * rot * second_xyz_full + trans
+    first_stamps_trimed = [x for x in first_stamps if x > second_stamps[0] and x < second_stamps[-1]]
+    first_xyz_full_trimed = numpy.matrix([[float(value) for value in first_list[b][0:3]] for b in first_stamps_trimed]).transpose()
     
     if args.verbose:
         print "compared_pose_pairs %d pairs"%(len(trans_error))
@@ -211,12 +213,13 @@ if __name__=="__main__":
         from matplotlib.patches import Ellipse
         fig = plt.figure()
         ax = fig.add_subplot(111)
-        plot_traj(ax,first_stamps,first_xyz_full.transpose().A,'-',"black","ground truth")
+        # plot_traj(ax,first_stamps,first_xyz_full.transpose().A,'-',"black","ground truth")
+        plot_traj(ax,first_stamps_trimed,first_xyz_full_trimed.transpose().A,'-',"black","ground truth")
         plot_traj(ax,second_stamps,second_xyz_full_aligned.transpose().A,'-',"blue","estimated")
-        label="difference"
-        for (a,b),(x1,y1,z1),(x2,y2,z2) in zip(matches,first_xyz.transpose().A,second_xyz_aligned.transpose().A):
-            ax.plot([x1,x2],[y1,y2],'-',color="red",label=label)
-            label=""
+        # label="difference"
+        # for (a,b),(x1,y1,z1),(x2,y2,z2) in zip(matches,first_xyz.transpose().A,second_xyz_aligned.transpose().A):
+        #     ax.plot([x1,x2],[y1,y2],'-',color="red",label=label)
+        #     label=""
             
         ax.legend()
             

@@ -66,11 +66,11 @@ Thirdparty/g2o/config.h
 Thirdparty/g2o/lib/
 Vocabulary/ORBvoc.txt
 build/
-
+cmake-build-debug/
+cmake-build-release/
 lib/
 
 cmake_modules/
-cmake-build-debug/
 
 ExecMean.txt
 SessionInfo.txt
